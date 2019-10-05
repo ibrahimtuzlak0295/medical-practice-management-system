@@ -10,4 +10,9 @@ class Practice extends Model
     {
         return $this->hasMany('App\Employee');
     }
+
+    public function fieldsOfPractice()
+    {
+        return $this->belongsToMany('App\FieldsOfPractice');        
+    }
 }
