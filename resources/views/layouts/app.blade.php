@@ -41,14 +41,23 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link @if(Request::url() == route('login')) active @endif" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link @if(Request::url() == route('register')) active @endif" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link @if(Request::url() == route('practices.index')) active @endif" href="{{ route('practices.index') }}">{{ __('Practices') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if(Request::url() == route('employees.index')) active @endif" href="{{ route('employees.index') }}">{{ __('Employees') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if(Request::url() == route('fields-of-practice.index')) active @endif" href="{{ route('fields-of-practice.index') }}">{{ __('Fields Of Practice') }}</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

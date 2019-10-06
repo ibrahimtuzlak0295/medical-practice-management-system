@@ -20,3 +20,13 @@ Auth::routes([
 ]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('practices', 'PracticeController')->middleware([
+    'auth'
+]);
+Route::resource('employees', 'EmployeeController')->middleware([
+    'auth'
+]);
+Route::resource('fields-of-practice', 'FieldsOfPracticeController')->middleware([
+    'auth'
+]);
