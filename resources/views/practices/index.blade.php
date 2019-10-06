@@ -42,9 +42,9 @@
                         @foreach($practices as $practice)
                             <tr>
                                 <td><a href="{{ route('practices.show', ['practice' => $practice->id]) }}">{{ $practice->name }}</a></td>
-                                <td>{{ $practice->email }}</td>
-                                <td>@if($practice->logo) <img alt="{{ $practice->name }}" class="img-thumbnail" src="{{ $practice->logo }}">@endif</td>
-                                <td><a target="_blank" href="{{ $practice->website }}">{{ $practice->website }}</a></td>
+                                <td>@if($practice->email){{ $practice->email }}@else-@endif</td>
+                                <td>@if($practice->logo) <a target="_blank" href="{{ $practice->logo }}">{{ $practice->logo }}</a>@else-@endif</td>
+                                <td>@if($practice->website)<a target="_blank" href="{{ $practice->website }}">{{ $practice->website }}</a>@else-@endif</td>
                             </tr>
                         @endforeach
                     </tbody>
