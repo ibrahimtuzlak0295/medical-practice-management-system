@@ -42,7 +42,13 @@
      <div class="row md-4 justify-content-left">
         <div class="col-md-12">
             <h2>{{ $practice->name }}</h2>
+            @if($practice->logo)<img width="100" alt="{{ $practice->name }}" src="{{ $practice->logo}}">@endif
+
             <hr>
+            <p>Name: {{ $practice->name }}</p>
+            <p>Email: @if($practice->email)<a href="mailto:{{ $practice->email }}">{{ $practice->email }}</a>@else-@endif</p>
+            <p>Logo: @if($practice->email)<a target="_blank" href="{{ $practice->logo }}">{{ $practice->logo }}</a>@else-@endif</p>
+            <p>Website: @if($practice->website)<a href="mailto:{{ $practice->website }}">{{ $practice->website }}</a>@else-@endif</p>
         </div>
     </div>
     <div class="row md-4 justify-content-center">
