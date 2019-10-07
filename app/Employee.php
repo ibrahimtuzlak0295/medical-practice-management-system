@@ -10,7 +10,7 @@ class Employee extends Model
 
     public function practice()
     {
-        return $this->belongsTo('App\Practice');
+        return $this->belongsTo('App\Practice')->withDefault();
     }
 
     public function getFullNameAttribute()

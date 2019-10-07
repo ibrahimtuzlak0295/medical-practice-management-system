@@ -42,7 +42,7 @@
                         @foreach($employees as $employee)
                             <tr>
                                 <td><a href="{{ route('employees.show', ['employee' => $employee]) }}">{{ $employee->full_name }}</a></td>
-                                <td><a href="{{ route('practices.show', ['practice' => $employee->practice]) }}">{{ $employee->practice->name }}</a></td>
+                                <td>@if($employee->practice_id)<a href="{{ route('practices.show', ['practice' => $employee->practice]) }}">{{ $employee->practice->name }}</a>@else-@endif</td>
                                 <td>@if($employee->email)<a href="mailto:{{ $employee->email }}">{{ $employee->email }}</a>@else-@endif</td>
                                 <td>@if($employee->phone)<a href="tel:{{ $employee->phone }}">{{ $employee->phone }}</a>@else-@endif</td>
                             </tr>

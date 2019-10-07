@@ -49,9 +49,9 @@
         <div class="col-md-5">
             <p> First Name: {{ $employee->first_name }} </p>
             <p> Last Name: {{ $employee->last_name }} </p>
-            <p> Email: <a href="mailto:{{ $employee->email }}">{{ $employee->email }}</a> </p>
-            <p> Phone: <a href="tel:{{ $employee->phone }}">{{ $employee->phone }}</a> </p>
-            <p> Practice: <a href="{{ route('practices.show', ['practice' => $employee->practice]) }}">{{ $employee->practice->name}}</a> </p>
+            <p> Email: @if($employee->email)<a href="mailto:{{ $employee->email }}">{{ $employee->email }}</a>@else-@endif </p>
+            <p> Phone: @if($employee->phone)<a href="tel:{{ $employee->phone }}">{{ $employee->phone }}</a>@else-@endif </p>
+            <p> Practice: @if($employee->practice_id)<a href="{{ route('practices.show', ['practice' => $employee->practice]) }}">{{ $employee->practice->name}}</a>@else-@endif </p>
         </div>
     </div>
     @endif

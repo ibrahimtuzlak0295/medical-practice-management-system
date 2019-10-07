@@ -91,6 +91,7 @@
                             <div class="col-md-6">
 
                                 <select name="practice_id" id="practice-id" class="form-control @error('practice_id') is-invalid @enderror">
+                                    <option value="">None</option>
                                     @foreach($practices as $practice)
                                         <option value="{{ $practice->id }}" @if($employee->practice->id == $practice->id) selected @endif>{{ $practice->name }}</option>
                                     @endforeach

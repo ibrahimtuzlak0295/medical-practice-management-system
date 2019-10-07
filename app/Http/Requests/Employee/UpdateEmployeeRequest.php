@@ -26,7 +26,7 @@ class UpdateEmployeeRequest extends FormRequest
         return [
             'first_name' => 'sometimes|required|string',
             'last_name' => 'sometimes|required|string',
-            'practice_id' => 'sometimes|required|integer|exists:practices,id',
+            'practice_id' => 'sometimes|nullable|integer|exists:practices,id',
             'email' => 'sometimes|nullable|email',
             'phone' => 'sometimes|nullable|integer'
         ];
