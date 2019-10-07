@@ -98,7 +98,9 @@ class FieldsOfPracticeController extends Controller
 
         try {
             $fieldOfPractice->save();
-            return Redirect::back()->withSuccess(__('Success!'));
+            return Redirect::route('fields-of-practice.show', [
+                'field_of_practice' => $fieldOfPractice
+            ])->withSuccess(__('Success!'));
         } catch (Exception $e) {
             return Redirect::back()->withError(__('Failure updating field of practice! Please try again.')); 
         }

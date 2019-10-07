@@ -124,7 +124,9 @@ class PracticeController extends Controller
         try {
             $practice->save();
             $practice->fieldsOfPractice()->sync($request->input('fields_of_practice'));
-            return Redirect::back()->withSuccess(__('Success!'));
+            return Redirect::route('practices.show', [
+                'practice' => $practice
+            ])->withSuccess(__('Success!'));
         } catch (Exception $e) {
             return Redirect::back()->withError(__('Failure updating! Please try again.')); 
         }

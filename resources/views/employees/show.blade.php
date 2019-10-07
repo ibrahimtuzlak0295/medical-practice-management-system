@@ -22,7 +22,7 @@
 
     @if(Session::has('success'))
         <div class="row mb-4 justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="alert alert-success" role="alert">
                     {{ Session::get('success') }}
                 </div>
@@ -30,7 +30,7 @@
         </div>
     @elseif(Session::has('error'))
         <div class="row mb-4 justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="alert alert-danger" role="alert">
                     {{ Session::get('error') }}
                 </div>

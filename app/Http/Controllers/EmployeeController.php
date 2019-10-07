@@ -108,7 +108,9 @@ class EmployeeController extends Controller
 
         try {
             $employee->save();
-            return Redirect::back()->withSuccess(__('Success!'));
+            return Redirect::route('employees.show', [
+                'employee' => $employee
+            ])->withSuccess(__('Success!'));
         } catch (Exception $e) {
             return Redirect::back()->withError(__('Failure updating employee! Please try again.')); 
         }
