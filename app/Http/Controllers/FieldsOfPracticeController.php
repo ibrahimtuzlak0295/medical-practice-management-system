@@ -61,10 +61,10 @@ class FieldsOfPracticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(FieldsOfPractice $fieldsOfPractice)
     {
         return view('fields-of-practice.show', [
-            'field_of_practice' => FieldsOfPractice::findOrFail($id)
+            'field_of_practice' => $fieldsOfPractice
         ]);
     }
 
@@ -74,10 +74,10 @@ class FieldsOfPracticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FieldsOfPractice $fieldsOfPractice)
     {
         return view('fields-of-practice.edit', [
-            'field_of_practice' => FieldsOfPractice::findOrFail($id)
+            'field_of_practice' => $fieldsOfPractice
         ]);
     }
 
@@ -88,18 +88,16 @@ class FieldsOfPracticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFieldsOfPracticeRequest $request, $id)
+    public function update(UpdateFieldsOfPracticeRequest $request, FieldsOfPractice $fieldsOfPractice)
     {
-        $fieldOfPractice = FieldsOfPractice::findOrFail($id);
-
-        $fieldOfPractice->fill([
+        $fieldsOfPractice->fill([
             'name' => $request->input('name')
         ]);
 
         try {
-            $fieldOfPractice->save();
+            $fieldsOfPractice->save();
             return Redirect::route('fields-of-practice.show', [
-                'field_of_practice' => $fieldOfPractice
+                'field_of_practice' => $fieldsOfPractice
             ])->withSuccess(__('Success!'));
         } catch (Exception $e) {
             return Redirect::back()->withError(__('Failure updating field of practice! Please try again.')); 
@@ -112,10 +110,10 @@ class FieldsOfPracticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(FieldsOfPractice $fieldsOfPractice)
     {
         try {
-            FieldsOfPractice::findOrFail($id)->delete();
+            $fieldsOfPractice->delete();
             return Redirect::route('fields-of-practice.index')->withSuccess(__('Field of practice deleted successfully!'));
         } catch (Exception $e) {
             return Redirect::back()->withError(__('Failure deleting field of practice! Please check if there are practices still connected to this field of practice and try again.')); 

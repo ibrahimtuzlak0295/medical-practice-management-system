@@ -67,10 +67,10 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Employee $employee)
     {
         return view('employees.show', [
-            'employee' => Employee::findOrFail($id)
+            'employee' => $employee
         ]);
     }
 
@@ -80,10 +80,10 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Employee $employee)
     {
         return view('employees.edit', [
-            'employee' => Employee::findOrFail($id),
+            'employee' => $employee,
             'practices' => Practice::all()
         ]);
     }
@@ -95,9 +95,8 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEmployeeRequest $request, $id)
+    public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        $employee = Employee::findOrFail($id);
         $employee->fill([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
@@ -122,10 +121,10 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Employee $employee)
     {
         try {
-            Employee::findOrFail($id)->delete();
+            $employee->delete();
             return Redirect::route('employees.index')->withSuccess(__('Employee deleted successfully!'));
         } catch (Exception $e) {
             return Redirect::back()->withError(__('Failure deleting employee! Please try again.')); 

@@ -76,10 +76,10 @@ class PracticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Practice $practice)
     {
         return view('practices.show', [
-            'practice' => Practice::findOrFail($id),
+            'practice' => $practice,
             'fields_of_practice' => FieldsOfPractice::all()
         ]);
     }
@@ -90,10 +90,10 @@ class PracticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Practice $practice)
     {
         return view('practices.edit', [
-            'practice' => Practice::findOrFail($id),
+            'practice' => $practice,
             'fields_of_practice' => FieldsOfPractice::all()
         ]);
     }
@@ -105,10 +105,8 @@ class PracticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePracticeRequest $request, $id)
+    public function update(UpdatePracticeRequest $request, Practice $practice)
     {
-        $practice = Practice::findOrFail($id);
-
         $practice->fill([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -138,10 +136,10 @@ class PracticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Practice $practice)
     {
         try {
-            Practice::findOrFail($id)->delete();
+            $practice->delete();
             return Redirect::route('practices.index')->withSuccess(__('Practice deleted successfully!'));
         } catch (Exception $e) {
             return Redirect::back()->withError(__('Failure deleting! Please check if there are employees or fields of practice still connected to this practice and try again.'));
