@@ -14,6 +14,6 @@ class PracticeController extends Controller
      */
     public function index()
     {
-        return Practice::all();
+        return Practice::paginate(10);
     }
 }
