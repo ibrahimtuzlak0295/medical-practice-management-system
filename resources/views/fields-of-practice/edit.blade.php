@@ -40,7 +40,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('fields-of-practice.update', ['field_of_practice' => $field_of_practice]) }}">
                         @csrf
-                        @method('PUT')
+                        @method('PATCH')
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>

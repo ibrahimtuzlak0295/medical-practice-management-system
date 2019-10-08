@@ -40,7 +40,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('employees.update', ['employee' => $employee]) }}">
                         @csrf
-                        @method('PUT')
+                        @method('PATCH')
 
                         <div class="form-group row">
                             <label for="first-name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
