@@ -47,7 +47,7 @@
             <hr>
             <p>Name: {{ $practice->name }}</p>
             <p>Email: @if($practice->email)<a href="mailto:{{ $practice->email }}">{{ $practice->email }}</a>@else-@endif</p>
-            <p>Logo: @if($practice->email)<a target="_blank" href="{{ $practice->logo }}">{{ $practice->logo }}</a>@else-@endif</p>
+            <p>Logo: @if($practice->logo)<a target="_blank" href="{{ $practice->logo }}">{{ $practice->logo }}</a>@else-@endif</p>
             <p>Website: @if($practice->website)<a href="mailto:{{ $practice->website }}">{{ $practice->website }}</a>@else-@endif</p>
         </div>
     </div>
