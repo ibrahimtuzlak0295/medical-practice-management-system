@@ -6,7 +6,7 @@
     <div class="row mb-4 justify-content-left">
         <div class="col-md-10">
             <div class="btn-group">
-            <a href="{{ route('employees.edit', ['employee' => $employee]) }}" class="btn btn-primary" role="button" aria-pressed="true">{{ __('Edit Employee') }}</a>
+            <a href="{{ route('employees.edit', $employee) }}" class="btn btn-primary" role="button" aria-pressed="true">{{ __('Edit Employee') }}</a>
 
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
@@ -51,13 +51,13 @@
             <p> Last Name: {{ $employee->last_name }} </p>
             <p> Email: @if($employee->email)<a href="mailto:{{ $employee->email }}">{{ $employee->email }}</a>@else-@endif </p>
             <p> Phone: @if($employee->phone)<a href="tel:{{ $employee->phone }}">{{ $employee->phone }}</a>@else-@endif </p>
-            <p> Practice: @if($employee->practice_id)<a href="{{ route('practices.show', ['practice' => $employee->practice]) }}">{{ $employee->practice->name}}</a>@else-@endif </p>
+            <p> Practice: @if($employee->practice_id)<a href="{{ route('practices.show', $employee->practice) }}">{{ $employee->practice->name}}</a>@else-@endif </p>
         </div>
     </div>
     @endif
 
 
-    <form id="delete-employee-form" action="{{ route('employees.destroy', ['employee' => $employee]) }}" method="POST" style="display: none;">
+    <form id="delete-employee-form" action="{{ route('employees.destroy', $employee) }}" method="POST" style="display: none;">
         @csrf
         @method('DELETE')
     </form>

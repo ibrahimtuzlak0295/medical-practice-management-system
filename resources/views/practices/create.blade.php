@@ -92,8 +92,8 @@
                             
                             <div class="col-md-6">
                                 <select class="form-control @error('fields_of_practice') is-invalid @enderror" multiple="multiple" name="fields_of_practice[]" id="fields-of-practice" size="6">
-                                    @foreach($fields_of_practice as $field_of_practice)
-                                    <option value="{{ $field_of_practice->id }}">{{ $field_of_practice->name }}</option>
+                                    @foreach($fieldsOfPractice as $field)
+                                        <option value="{{ $field->id }}">{{ $field->name }}</option>
                                     @endforeach
                                 </select>
 

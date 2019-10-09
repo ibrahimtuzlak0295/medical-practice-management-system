@@ -35,7 +35,6 @@ class UpdatePracticeRequest extends FormRequest
             ],
             'website' => 'sometimes|nullable|string',
             'fields_of_practice' => 'sometimes|array|exists:fields_of_practice,id'
-
         ];
     }
 }

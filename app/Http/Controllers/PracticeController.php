@@ -10,7 +10,6 @@ use App\FieldsOfPractice;
 use App\Rules\MinImageWidth;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 class PracticeController extends Controller
@@ -22,9 +21,8 @@ class PracticeController extends Controller
      */
     public function index()
     {
-        return view('practices.index', [
-            'practices' => Practice::paginate(10)
-        ]);
+        $practices = Practice::paginate(10);
+        return view('practices.index', compact('practices'));
     }
 
     /**
@@ -34,9 +32,8 @@ class PracticeController extends Controller
      */
     public function create()
     {
-        return view('practices.create', [
-            'fields_of_practice' => FieldsOfPractice::all()
-        ]);
+        $fieldsOfPractice = FieldsOfPractice::all();
+        return view('practices.create', compact('fieldsOfPractice'));
     }
 
     /**
@@ -47,27 +44,13 @@ class PracticeController extends Controller
      */
     public function store(StorePracticeRequest $request)
     {
-        $practice = new Practice;
-
-        $practice->fill([
-            'name' =>  $request->input('name'),
-            'email' => $request->input('email'),
-            'website' => $request->input('website')
-        ]);
-
-        if($request->hasFile('logo')) {
-            $practice->logo = $request->logo->store('logos', [
-                'disk' => 'public'
-            ]);
-        }
-
         try {
-            $practice->save();
+            $practice = Practice::create($request->all());
             $practice->fieldsOfPractice()->sync($request->input('fields_of_practice'));
-            return Redirect::back()->withSuccess(__('Success!'));
         } catch (Exception $e) {
             return Redirect::back()->withError(__('Failure saving a new practice! Please try again.')); 
         }
+        return redirect()->route('practices.show', $practice)->withSuccess(__('Success!'));
     }
 
     /**
@@ -78,10 +61,8 @@ class PracticeController extends Controller
      */
     public function show(Practice $practice)
     {
-        return view('practices.show', [
-            'practice' => $practice,
-            'fields_of_practice' => FieldsOfPractice::all()
-        ]);
+        $fieldsOfPractice = FieldsOfPractice::all();
+        return view('practices.show', compact('practice', 'fieldsOfPractice'));
     }
 
     /**
@@ -92,10 +73,8 @@ class PracticeController extends Controller
      */
     public function edit(Practice $practice)
     {
-        return view('practices.edit', [
-            'practice' => $practice,
-            'fields_of_practice' => FieldsOfPractice::all()
-        ]);
+        $fieldsOfPractice = FieldsOfPractice::all();
+        return view('practices.edit', compact('practice', 'fieldsOfPractice'));
     }
 
     /**
@@ -107,27 +86,13 @@ class PracticeController extends Controller
      */
     public function update(UpdatePracticeRequest $request, Practice $practice)
     {
-        $practice->fill([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'website' => $request->input('website'),
-        ]);
-
-        if($request->hasFile('logo')) {
-            $practice->logo = $request->logo->store('logos', [
-                'disk' => 'public'
-            ]);
-        }
-
         try {
-            $practice->save();
+            $practice->update($request->all());
             $practice->fieldsOfPractice()->sync($request->input('fields_of_practice'));
-            return Redirect::route('practices.show', [
-                'practice' => $practice
-            ])->withSuccess(__('Success!'));
         } catch (Exception $e) {
-            return Redirect::back()->withError(__('Failure updating! Please try again.')); 
+            return back()->withError(__('Failure updating! Please try again.')); 
         }
+        return redirect()->route('practices.show', $practice)->withSuccess(__('Success!'));
     }
 
     /**
@@ -140,9 +105,9 @@ class PracticeController extends Controller
     {
         try {
             $practice->delete();
-            return Redirect::route('practices.index')->withSuccess(__('Practice deleted successfully!'));
         } catch (Exception $e) {
-            return Redirect::back()->withError(__('Failure deleting! Please check if there are employees or fields of practice still connected to this practice and try again.'));
+            return back()->withError(__('Failure deleting! Please check if there are employees or fields of practice still connected to this practice and try again.'));
         }
+        return redirect()->route('practices.index')->withSuccess(__('Practice deleted successfully!'));
     }
 }

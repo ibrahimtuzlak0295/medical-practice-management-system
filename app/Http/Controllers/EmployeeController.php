@@ -7,7 +7,6 @@ use App\Employee;
 use App\Practice;
 use App\Http\Requests\Employee\StoreEmployeeRequest;
 use App\Http\Requests\Employee\UpdateEmployeeRequest;
-use Illuminate\Support\Facades\Redirect;
 use Exception;
 
 class EmployeeController extends Controller
@@ -19,9 +18,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('employees.index', [
-            'employees' => Employee::paginate(10)
-        ]);
+        $employees = Employee::paginate(10);
+        return view('employees.index', compact('employees'));
     }
 
     /**
@@ -31,9 +29,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employees.create', [
-            'practices' => Practice::all()
-        ]);
+        $practices = Practice::all();
+        return view('employees.create', compact('practices'));
     }
 
     /**
@@ -44,21 +41,12 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployeeRequest $request)
     {
-        $employee = new Employee;
-        $employee->fill([
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'practice_id' => $request->input('practice_id'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone')
-        ]);
-
         try {
-            $employee->save();
-            return Redirect::back()->withSuccess(__('Success!'));
+            $employee = Employee::create($request->all());
         } catch (Exception $e) {
-            return Redirect::back()->withError(__('Failure saving a new employee! Please try again.')); 
+            return back()->withError(__('Failure saving a new employee! Please try again.')); 
         }
+        return redirect()->route('employees.show', $employee)->withSuccess(__('Success!'));
     }
 
     /**
@@ -69,9 +57,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return view('employees.show', [
-            'employee' => $employee
-        ]);
+        return view('employees.show', compact('employee'));
     }
 
     /**
@@ -82,10 +68,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('employees.edit', [
-            'employee' => $employee,
-            'practices' => Practice::all()
-        ]);
+        $practices = Practice::all();
+        return view('employees.edit', compact('employee', 'practices'));
     }
 
     /**
@@ -97,22 +81,12 @@ class EmployeeController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        $employee->fill([
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'practice_id' => $request->input('practice_id'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone')
-        ]);
-
         try {
-            $employee->save();
-            return Redirect::route('employees.show', [
-                'employee' => $employee
-            ])->withSuccess(__('Success!'));
+            $employee->update($request->all());
         } catch (Exception $e) {
-            return Redirect::back()->withError(__('Failure updating employee! Please try again.')); 
+            return back()->withError(__('Failure updating employee! Please try again.')); 
         }
+        return redirect()->route('employees.show', $employee)->withSuccess(__('Success!'));
     }
 
     /**
@@ -125,9 +99,9 @@ class EmployeeController extends Controller
     {
         try {
             $employee->delete();
-            return Redirect::route('employees.index')->withSuccess(__('Employee deleted successfully!'));
         } catch (Exception $e) {
-            return Redirect::back()->withError(__('Failure deleting employee! Please try again.')); 
+            return back()->withError(__('Failure deleting employee! Please try again.')); 
         }
+        return redirect()->route('employees.index')->withSuccess(__('Employee deleted successfully!'));
     }
 }

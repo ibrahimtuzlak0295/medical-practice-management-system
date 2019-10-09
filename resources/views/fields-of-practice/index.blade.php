@@ -36,14 +36,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($fields_of_practice as $field_of_practice)
+                        @foreach($fieldsOfPractice as $field)
                             <tr>
-                                <td><a href="{{ route('fields-of-practice.show', ['field_of_practice' => $field_of_practice->id]) }}">{{ $field_of_practice->name }}</a></td>
+                                <td><a href="{{ route('fields-of-practice.show', $field) }}">{{ $field->name }}</a></td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                {{ $fields_of_practice->links() }}
+                {{ $fieldsOfPractice->links() }}
             @else
                 <p class="alert alert-warning">No fields of practice available. Click <a href="{{ route('fields-of-practice.create') }}">here</a> to create a new field practice.</p>
             @endif

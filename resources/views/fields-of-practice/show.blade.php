@@ -6,7 +6,7 @@
     <div class="row mb-4 justify-content-left">
         <div class="col-md-12">
             <div class="btn-group">
-            <a href="{{ route('fields-of-practice.edit', ['field_of_practice' => $field_of_practice]) }}" class="btn btn-primary" role="button" aria-pressed="true">{{ __('Edit Field Of Practice') }}</a>
+            <a href="{{ route('fields-of-practice.edit', $fieldsOfPractice) }}" class="btn btn-primary" role="button" aria-pressed="true">{{ __('Edit Field Of Practice') }}</a>
 
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
@@ -38,10 +38,10 @@
         </div>
     @endif
     
-    @if('field_of_practice')
+    @if('fieldsOfPractice')
      <div class="row md-4 justify-content-left">
         <div class="col-md-12">
-            <h2>{{ $field_of_practice->name }}</h2>
+            <h2>{{ $fieldsOfPractice->name }}</h2>
             <hr>
         </div>
     </div>
@@ -49,8 +49,8 @@
         <div class="col-md-12">
         <h4>Practices</h4>
             <hr>
-            @forelse($field_of_practice->practices as $practice)
-                <li><a href="{{ route('practices.show', ['practice' => $practice]) }}">{{ $practice->name }}</a></li>
+            @forelse($fieldsOfPractice->practices as $practice)
+                <li><a href="{{ route('practices.show', $practice) }}">{{ $practice->name }}</a></li>
             @empty
                 <p class="alert alert-warning">{{ __('No practices set.')}}</p>
             @endforelse
@@ -59,7 +59,7 @@
     </div>
     @endif
 
-    <form id="delete-field-of-practice-form" action="{{ route('fields-of-practice.destroy', ['field_of_practice' => $field_of_practice]) }}" method="POST" style="display: none;">
+    <form id="delete-field-of-practice-form" action="{{ route('fields-of-practice.destroy', $fieldsOfPractice) }}" method="POST" style="display: none;">
         @csrf
         @method('DELETE')
     </form>

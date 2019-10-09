@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\FieldsOfPractice;
-use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\FieldsOfPractice\StoreFieldsOfPracticeRequest;
 use App\Http\Requests\FieldsOfPractice\UpdateFieldsOfPracticeRequest;
 use Exception;
@@ -18,9 +17,8 @@ class FieldsOfPracticeController extends Controller
      */
     public function index()
     {
-        return view('fields-of-practice.index', [
-            'fields_of_practice' => FieldsOfPractice::paginate(10)
-        ]);
+        $fieldsOfPractice = FieldsOfPractice::paginate(10);
+        return view('fields-of-practice.index', compact('fieldsOfPractice'));
     }
 
     /**
@@ -41,18 +39,12 @@ class FieldsOfPracticeController extends Controller
      */
     public function store(StoreFieldsOfPracticeRequest $request)
     {
-        $fieldOfPractice = new FieldsOfPractice;
-
-        $fieldOfPractice->fill([
-            'name' => $request->input('name')
-        ]);
-
         try {
-            $fieldOfPractice->save();
-            return Redirect::back()->withSuccess(__('Success!'));
+            $fieldsOfPractice = FieldsOfPractice::create($request->all());
         } catch (Exception $e) {
-            return Redirect::back()->withError(__('Failure creating field of practice! Please try again.')); 
+            return back()->withError(__('Failure creating field of practice! Please try again.')); 
         }
+        return redirect()->route('fields-of-practice.show', $fieldsOfPractice)->withSuccess(__('Success!'));
     }
 
     /**
@@ -63,9 +55,7 @@ class FieldsOfPracticeController extends Controller
      */
     public function show(FieldsOfPractice $fieldsOfPractice)
     {
-        return view('fields-of-practice.show', [
-            'field_of_practice' => $fieldsOfPractice
-        ]);
+        return view('fields-of-practice.show', compact('fieldsOfPractice'));
     }
 
     /**
@@ -76,9 +66,7 @@ class FieldsOfPracticeController extends Controller
      */
     public function edit(FieldsOfPractice $fieldsOfPractice)
     {
-        return view('fields-of-practice.edit', [
-            'field_of_practice' => $fieldsOfPractice
-        ]);
+        return view('fields-of-practice.edit', compact('fieldsOfPractice'));
     }
 
     /**
@@ -90,18 +78,12 @@ class FieldsOfPracticeController extends Controller
      */
     public function update(UpdateFieldsOfPracticeRequest $request, FieldsOfPractice $fieldsOfPractice)
     {
-        $fieldsOfPractice->fill([
-            'name' => $request->input('name')
-        ]);
-
         try {
-            $fieldsOfPractice->save();
-            return Redirect::route('fields-of-practice.show', [
-                'field_of_practice' => $fieldsOfPractice
-            ])->withSuccess(__('Success!'));
+            $fieldsOfPractice->update($request->all());
         } catch (Exception $e) {
-            return Redirect::back()->withError(__('Failure updating field of practice! Please try again.')); 
+            return back()->withError(__('Failure updating field of practice! Please try again.')); 
         }
+        return redirect()->route('fields-of-practice.show', $fieldsOfPractice)->withSuccess(__('Success!'));
     }
 
     /**
@@ -114,9 +96,9 @@ class FieldsOfPracticeController extends Controller
     {
         try {
             $fieldsOfPractice->delete();
-            return Redirect::route('fields-of-practice.index')->withSuccess(__('Field of practice deleted successfully!'));
         } catch (Exception $e) {
-            return Redirect::back()->withError(__('Failure deleting field of practice! Please check if there are practices still connected to this field of practice and try again.')); 
+            return back()->withError(__('Failure deleting field of practice! Please check if there are practices still connected to this field of practice and try again.')); 
         }
+        return redirect()->route('fields-of-practice.index')->withSuccess(__('Field of practice deleted successfully!'));
     }
 }

@@ -6,7 +6,7 @@
     <div class="row mb-4 justify-content-center">
         <div class="col-md-8">
 
-            <form method="POST" action="{{ route('employees.destroy', ['employee' => $employee]) }}">
+            <form method="POST" action="{{ route('employees.destroy', $employee) }}">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger" type="submit">{{ __('Delete Employee') }}</button>
@@ -38,7 +38,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Update Employee') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('employees.update', ['employee' => $employee]) }}">
+                    <form method="POST" action="{{ route('employees.update', $employee) }}">
                         @csrf
                         @method('PATCH')
 

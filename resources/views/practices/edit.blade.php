@@ -6,7 +6,7 @@
     <div class="row mb-4 justify-content-center">
         <div class="col-md-8">
 
-            <form method="POST" action="{{ route('practices.destroy', ['practice' => $practice]) }}">
+            <form method="POST" action="{{ route('practices.destroy', $practice) }}">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger" type="submit">{{ __('Delete Practice') }}</button>
@@ -38,7 +38,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Update Practice') }}</div>
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" action="{{ route('practices.update', ['practice' => $practice]) }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('practices.update', $practice) }}">
                         @csrf
                         @method('PATCH')
 
@@ -104,12 +104,12 @@
                             
                             <div class="col-md-6">
                                 <select class="form-control @error('fields_of_practice') is-invalid @enderror" multiple="multiple" name="fields_of_practice[]" id="fields-of-practice" size="6">
-                                    @foreach($fields_of_practice as $field_of_practice)
-                                    <option @if($practice->fieldsOfPractice->contains($field_of_practice)) selected @endif value="{{ $field_of_practice->id}}">{{ $field_of_practice->name }}</option>
+                                    @foreach($fieldsOfPractice as $field)
+                                        <option @if($practice->fieldsOfPractice->contains($field)) selected @endif value="{{ $field->id}}">{{ $field->name }}</option>
                                     @endforeach
                                 </select>
 
-                                @error('fields_of_practice')
+                                @error('fieldsOfPractice')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
