@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 
 class Practice extends Model
 {
-    protected $fillable = ['name', 'email', 'website'];
+    protected $fillable = ['name', 'email', 'logo', 'website'];
     
     public function employees()
     {
@@ -23,6 +24,18 @@ class Practice extends Model
     {
         // The actual path from which the logo can be accessed publicly can vary (based on config)
         if(NULL !== $value) return Storage::url($value);
+    }
+
+    public function setLogoAttribute($value)
+    {
+        if(NULL === $value) return NULL;
+
+        if(is_string($value)) $this->attributes['logo'] = $value;
+
+        if($value instanceof UploadedFile) {
+            $logo = $value->store('logos', ['disk' => 'public']);
+            $this->attributes['logo'] = $logo;
+        }
     }
 
     public function getWebsiteAttribute($value)
