@@ -48,7 +48,7 @@ class PracticeController extends Controller
             $practice = Practice::create($request->all());
             $practice->fieldsOfPractice()->sync($request->input('fields_of_practice'));
         } catch (Exception $e) {
-            return Redirect::back()->withError(__('Failure saving a new practice! Please try again.')); 
+            return back()->withError(__('Failure saving a new practice! Please try again.'));
         }
         return redirect()->route('practices.show', $practice)->withSuccess(__('Success!'));
     }
