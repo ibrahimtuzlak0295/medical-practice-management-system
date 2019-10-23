@@ -97,24 +97,26 @@
                                 @enderror
                             </div>
                         </div>
-                        
-                        <div class="form-group row">
 
+                        <div class="form-group row">
                             <label for="fields-of-practice" class="col-md-4 col-form-label text-md-right">{{ __('Fields Of Practice') }}</label>
-                            
+
                             <div class="col-md-6">
-                                <select class="form-control @error('fields_of_practice') is-invalid @enderror" multiple="multiple" name="fields_of_practice[]" id="fields-of-practice" size="6">
-                                    @foreach($fieldsOfPractice as $field)
-                                        <option @if($practice->fieldsOfPractice->contains($field)) selected @endif value="{{ $field->id}}">{{ $field->name }}</option>
-                                    @endforeach
-                                </select>
+                                @foreach($fieldsOfPractice as $field)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="field-of-practice-{{ $field->id }}" name="fields_of_practice[]" @if($practice->fieldsOfPractice->contains($field)) checked @endif value="{{ $field->id }}">
+                                        <label for="field-of-practice-{{ $field->id }}"> {{ $field->name }}</label>
+                                    </div>
+                                @endforeach
 
                                 @error('fields_of_practice')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback d-block" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+
                             </div>
+
                         </div>
 
                         <div class="form-group row mb-0">
