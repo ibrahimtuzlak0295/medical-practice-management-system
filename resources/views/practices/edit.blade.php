@@ -109,7 +109,7 @@
                                     @endforeach
                                 </select>
 
-                                @error('fieldsOfPractice')
+                                @error('fields_of_practice')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
