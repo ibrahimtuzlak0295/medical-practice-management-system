@@ -74,13 +74,16 @@
                             <label for="logo" class="col-md-4 col-form-label text-md-right">{{ __('Logo') }}</label>
 
                             <div class="col-md-6">
-                                <input id="logo" type="file" class="form-control @error('logo') is-invalid @enderror" name="logo" autocomplete="current-file">
+                                <div class="custom-file">
+                                    <input id="logo" type="file" class="custom-file-input form-control @error('logo') is-invalid @enderror" name="logo">
+                                    <label for="logo" class="custom-file-label">{{ __('Logo') }}</label>
 
-                                @error('logo')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    @error('logo')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
