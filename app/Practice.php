@@ -9,7 +9,7 @@ use Illuminate\Http\UploadedFile;
 class Practice extends Model
 {
     protected $fillable = ['name', 'email', 'logo', 'website'];
-    
+
     public function employees()
     {
         return $this->hasMany('App\Employee');
@@ -17,13 +17,17 @@ class Practice extends Model
 
     public function fieldsOfPractice()
     {
-        return $this->belongsToMany('App\FieldsOfPractice');        
+        return $this->belongsToMany('App\FieldsOfPractice');
     }
 
     public function getLogoAttribute($value)
     {
         // The actual path from which the logo can be accessed publicly can vary (based on config)
-        if(NULL !== $value) return Storage::url($value);
+        $fullUrl = preg_match('{https?\:\/\/}', $value);
+
+        if($fullUrl) return $value;
+
+        return Storage::url($value);
     }
 
     public function setLogoAttribute($value)
