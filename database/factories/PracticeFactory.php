@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Practice::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->company,
         'email' => $faker->unique()->safeEmail,
         'logo' => 'https://loremflickr.com/320/240',
         'website' => $faker->domainName
