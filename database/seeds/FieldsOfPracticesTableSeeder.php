@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\FieldsOfPractice;
+
 class FieldsOfPracticesTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class FieldsOfPracticesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Practice::class, 5)->create();
+        factory(FieldsOfPractice::class, 5)->create();
     }
 }
