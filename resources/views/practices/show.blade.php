@@ -37,7 +37,7 @@
             </div>
         </div>
     @endif
-    
+
     @if('practice')
      <div class="row md-4 justify-content-left">
         <div class="col-md-12">
@@ -48,7 +48,7 @@
             <p>Name: {{ $practice->name }}</p>
             <p>Email: @if($practice->email)<a href="mailto:{{ $practice->email }}">{{ $practice->email }}</a>@else-@endif</p>
             <p>Logo: @if($practice->logo)<a target="_blank" href="{{ $practice->logo }}">{{ $practice->logo }}</a>@else-@endif</p>
-            <p>Website: @if($practice->website)<a href="mailto:{{ $practice->website }}">{{ $practice->website }}</a>@else-@endif</p>
+            <p>Website: @if($practice->website)<a href="{{ $practice->website }}">{{ $practice->website }}</a>@else-@endif</p>
         </div>
     </div>
     <div class="row md-4 justify-content-center">
@@ -59,7 +59,7 @@
                 <li><a href="{{ route('employees.show', $employee) }}">{{ $employee->full_name }}</a></li>
             @empty
                 <p class="alert alert-warning">No employees set.</p>
-            @endforelse                
+            @endforelse
         </div>
         <div class="col-md-6">
             <h4>Fields Of Practice</h4>
