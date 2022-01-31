@@ -23,3 +23,11 @@ of practice)
 - Create an API endpoint for listing all practices in database (unauthenticated)
 - Add final project to Git repository
 - Deploy to test server (DigitalOcean, Linode …)
+
+## Install and Test
+```shell
+$ composer install
+$ npm install
+$ php artisan migrate --seed # Login: "admin@example.com" / "password"
+$ php artisan serve
+```
